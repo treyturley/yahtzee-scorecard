@@ -1,0 +1,79 @@
+/* HTML Tag Elements */
+body {
+    background-color: #F4F4F4;
+    color: #555;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    /* line-height: 1.6em; */
+    margin: 0;
+}
+
+/* CSS Classes */
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.width1 {
+    width: 180px;
+}
+
+.width2 {
+    width: 125px;
+}
+
+.scorecolumn {
+    width: 75px
+}
+
+.td-heading {
+    font-weight: bold;
+    padding-left: 30px;
+    padding-right: 10px;
+}
+
+.td-center {
+    text-align: center;
+    padding-left: 5px;
+}
+
+/* specific IDs */
+#main-header {
+    background-color: #a5a5a5;
+    text-align: center;
+}
+
+#main-content {
+    margin-top: 40px;
+}
+
+#main-content table,
+th,
+td {
+    border: 1px solid black;
+    border-spacing: 0px;
+    height: 50px;
+    overflow: hidden;
+}
+
+
+
+#main-footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+#main-footer a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    margin: 5px;
+}
+
+#main-footer a:visited {
+    color: white;
+}
