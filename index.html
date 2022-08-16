@@ -12,127 +12,132 @@
             <h1>Yahtzee Scorecard</h1>
         </div>
     </header>
-    
+
     <main id="main-content">
         <div class="container">
-            <table>
-                <colgroup>
-                    <col class="width1"/>
-                    <col class="width2"/>
-                    <col span="6" class="scorecolumn"/>
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th>UPPER SECTION</th>
-                        <th>HOW TO SCORE</th>
-                        <th>GAME #1</th>
-                        <th>GAME #2</th>
-                        <th>GAME #3</th>
-                        <th>GAME #4</th>
-                        <th>GAME #5</th>
-                        <th>GAME #6</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="td-heading">Aces</td>
-                        <td class="td-center">Count and Add Only Aces</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="td-heading">Twos</td>
-                        <td class="td-center">Count and Add Only Twos</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="td-heading">Threes</td>
-                        <td class="td-center">Count and Add Only Threes</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="td-heading">Fours</td>
-                        <td class="td-center">Count and Add Only Fours</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="td-heading">Fives</td>
-                        <td class="td-center">Count and Add Only Fives</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="td-heading">Sixes</td>
-                        <td class="td-center">Count and Add Only Sixes</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="td-heading">TOTAL SCORE</td>
-                        <td class="td-center">--></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="td-heading">Bonus </td>
-                        <td class="td-center">35 points if total is 63 or over</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="td-heading">TOTAL of upper section</td>
-                        <td class="td-center">--></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+            <form name="scorecard" id="scorecard">
+                <table>
+                    <colgroup>
+                        <col class="width1" />
+                        <col class="width2" />
+                        <col span="6" class="scorecolumn" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>UPPER SECTION</th>
+                            <th>HOW TO SCORE</th>
+                            <th>GAME #1</th>
+                            <th>GAME #2</th>
+                            <th>GAME #3</th>
+                            <th>GAME #4</th>
+                            <th>GAME #5</th>
+                            <th>GAME #6</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td-heading">Aces</td>
+                            <td class="td-center">Count and Add Only Aces</td>
+                            <td><input type="number" name="G1-aces"></td>
+                            <td><input type="number" name="G2-aces"></td>
+                            <td><input type="number" name="G3-aces"></td>
+                            <td><input type="number" name="G4-aces"></td>
+                            <td><input type="number" name="G5-aces"></td>
+                            <td><input type="number" name="G6-aces"></td>
+                        </tr>
+                        <tr>
+                            <td class="td-heading">Twos</td>
+                            <td class="td-center">Count and Add Only Twos</td>
+                            <td><input type="number" name="G1-twos"></td>
+                            <td><input type="number" name="G2-twos"></td>
+                            <td><input type="number" name="G3-twos"></td>
+                            <td><input type="number" name="G4-twos"></td>
+                            <td><input type="number" name="G5-twos"></td>
+                            <td><input type="number" name="G6-twos"></td>
+                        </tr>
+                        <tr>
+                            <td class="td-heading">Threes</td>
+                            <td class="td-center">Count and Add Only Threes</td>
+                            <td><input type="number" name="G1-threes"></td>
+                            <td><input type="number" name="G2-threes"></td>
+                            <td><input type="number" name="G3-threes"></td>
+                            <td><input type="number" name="G4-threes"></td>
+                            <td><input type="number" name="G5-threes"></td>
+                            <td><input type="number" name="G6-threes"></td>
+                        </tr>
+                        <tr>
+                            <td class="td-heading">Fours</td>
+                            <td class="td-center">Count and Add Only Fours</td>
+                            <td><input type="number" name="G1-fours"></td>
+                            <td><input type="number" name="G2-fours"></td>
+                            <td><input type="number" name="G3-fours"></td>
+                            <td><input type="number" name="G4-fours"></td>
+                            <td><input type="number" name="G5-fours"></td>
+                            <td><input type="number" name="G6-fours"></td>
+                        </tr>
+                        <tr>
+                            <td class="td-heading">Fives</td>
+                            <td class="td-center">Count and Add Only Fives</td>
+                            <td><input type="number" name="G1-fives"></td>
+                            <td><input type="number" name="G2-fives"></td>
+                            <td><input type="number" name="G3-fives"></td>
+                            <td><input type="number" name="G4-fives"></td>
+                            <td><input type="number" name="G5-fives"></td>
+                            <td><input type="number" name="G6-fives"></td>
+                        </tr>
+                        <tr>
+                            <td class="td-heading">Sixes</td>
+                            <td class="td-center">Count and Add Only Sixes</td>
+                            <td><input type="number" name="G1-sixes"></td>
+                            <td><input type="number" name="G2-sixes"></td>
+                            <td><input type="number" name="G3-sixes"></td>
+                            <td><input type="number" name="G4-sixes"></td>
+                            <td><input type="number" name="G5-sixes"></td>
+                            <td><input type="number" name="G6-sixes"></td>
+                        </tr>
+                        <tr>
+                            <td class="td-heading">TOTAL SCORE</td>
+                            <td class="td-center">--></td>
+                            <td><div id="G1-upperScore"></div></td>
+                            <td><div id="G2-upperScore"></div></td>
+                            <td><div id="G3-upperScore"></div></td>
+                            <td><div id="G4-upperScore"></div></td>
+                            <td><div id="G5-upperScore"></div></td>
+                            <td><div id="G6-upperScore"></div></td>
+                        </tr>
+                        <tr>
+                            <td class="td-heading">Bonus </td>
+                            <td class="td-center">35 points if total is 63 or over</td>
+                            <td><div id="G1-bonusScore"></div></td>
+                            <td><div id="G2-bonusScore"></div></td>
+                            <td><div id="G3-bonusScore"></div></td>
+                            <td><div id="G4-bonusScore"></div></td>
+                            <td><div id="G5-bonusScore"></div></td>
+                            <td><div id="G6-bonusScore"></div></td>
+                        </tr>
+                        <tr>
+                            <td class="td-heading">TOTAL of upper section</td>
+                            <td class="td-center">--></td>
+                            <td><div id="G1-upperTotalScore"></div></td>
+                            <td><div id="G2-upperTotalScore"></div></td>
+                            <td><div id="G3-upperTotalScore"></div></td>
+                            <td><div id="G4-upperTotalScore"></div></td>
+                            <td><div id="G5-upperTotalScore"></div></td>
+                            <td><div id="G6-upperTotalScore"></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
         </div>
     </main>
-    
+
     <footer id="main-footer">
         <a href="https://fgbradleys.com/rules//Yahtzee.pdf">Yahtzee Rules</a>
-        <a href="https://www.memory-improvement-tips.com/support-files/yahtzee-score-sheet-large.pdf">Yahtzee Scorecards</a>
+        <a href="https://www.memory-improvement-tips.com/support-files/yahtzee-score-sheet-large.pdf">Yahtzee
+            Scorecards</a>
     </footer>
+
+    <script src="js/scorecard.js"></script>
 </body>
 
 </html>
