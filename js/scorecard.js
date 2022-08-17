@@ -90,9 +90,10 @@ function checkForUpperBonus(game) {
 
 
 function updateUpperTotalScore(game) {
-  let indexUpperScore = findScoreBoxIndex(new scoreBox(game, UPPER_SCORE));
-  let indexBonusScore = findScoreBoxIndex(new scoreBox(game, BONUS_SCORE));
-  // console.log(`Upper Score Index:${indexUpperScore}, Bonus index: ${indexBonusScore}`);
+  const indexUpperScore = findScoreBoxIndex(new scoreBox(game, UPPER_SCORE));
+  const indexBonusScore = findScoreBoxIndex(new scoreBox(game, BONUS_SCORE));
+  const indexUpperTotalScore = findScoreBoxIndex(new scoreBox(game, UPPER_TOTAL_SCORE));
+
 
   let total = 0;
 
@@ -105,6 +106,12 @@ function updateUpperTotalScore(game) {
   }
 
   document.getElementById(`${game}-${UPPER_TOTAL_SCORE}`).innerText = total;
+
+  if (indexUpperTotalScore >= 0) {
+    scorecard[indexUpperTotalScore].score = total;
+  } else {
+    scorecard.push(new scoreBox(game, UPPER_TOTAL_SCORE, total));
+  }
 }
 
 
