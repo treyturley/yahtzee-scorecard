@@ -1,3 +1,5 @@
+"use strict";
+
 const scorecardForm = document.querySelector('#scorecard'); //select on id scorecard
 scorecardForm.addEventListener('change', onChange);
 
@@ -45,8 +47,8 @@ function onChange(e) {
 
 
 function updateUpperScore(game) {
-  upperScoreBox = new scoreBox(game, UPPER_SCORE, 0);
-  upperScoreElmt = document.querySelector(`#${game}-${UPPER_SCORE}`);
+  const upperScoreBox = new scoreBox(game, UPPER_SCORE, 0);
+  const upperScoreElmt = document.querySelector(`#${game}-${UPPER_SCORE}`);
 
   upperScoreBox.score = calculateUpperGameScore(game);
 
@@ -90,7 +92,7 @@ function checkForUpperBonus(game) {
 function updateUpperTotalScore(game) {
   let indexUpperScore = findScoreBoxIndex(new scoreBox(game, UPPER_SCORE));
   let indexBonusScore = findScoreBoxIndex(new scoreBox(game, BONUS_SCORE));
-  console.log(`Upper Score Index:${indexUpperScore}, Bonus index: ${indexBonusScore}`);
+  // console.log(`Upper Score Index:${indexUpperScore}, Bonus index: ${indexBonusScore}`);
 
   let total = 0;
 
@@ -120,10 +122,9 @@ function findScoreBoxIndex(newScoreBox) {
 
 function calculateUpperGameScore(game) {
   let score = 0;
-
-  // ignores the calculated scores
+  // ignore the calculated scores boxes
   scorecard.forEach(scoreBox => {
-    if (scoreBox.game === upperScoreBox.game
+    if (scoreBox.game === game
       && scoreBox.rule != UPPER_SCORE
       && scoreBox.rule != BONUS_SCORE
       && scoreBox.rule != UPPER_TOTAL_SCORE) {
