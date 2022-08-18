@@ -136,7 +136,7 @@ function clickScorebox(e) {
       lowerScoreBoxElmt.innerHTML = newScorebox.score;
     } else {
       lowerScorecard[scoreBoxIndex].score = 0;
-      lowerScoreBoxElmt.innerHTML = '';
+      lowerScoreBoxElmt.innerHTML = 0;
     }
   } else {
     // a score doesnt exist yet so add new one
@@ -348,4 +348,11 @@ function updateGrandTotal(game){
     lowerScorecard.push(new ScoreBox(game, GRAND_TOTAL, total));
   }
   document.getElementById(`${game}-${GRAND_TOTAL}`).innerText = total;
+}
+
+/**
+ * checks to see if the score is valid for the rule
+ */
+function scoreIsValid(scoreBox){
+
 }
