@@ -32,6 +32,9 @@ const YAHTZEE = 'yahtzee';
 const upperScorecard = []
 const lowerScorecard = []
 
+/**
+ * Represents an individual box on the scorecard where a score can be entered.
+ */
 class ScoreBox {
   constructor(game, rule, score = 0) {
     this.game = game;
@@ -40,7 +43,10 @@ class ScoreBox {
   }
 }
 
-
+/**
+ * Handles input changes on the upper scorecard.
+ * @param {Event} e - The event fired when an input changes
+ */
 function onChangeUpper(e) {
   const game = e.target.name.split('-')[0];
   const rule = e.target.name.split('-')[1];
@@ -73,7 +79,10 @@ function onChangeUpper(e) {
   updateGrandTotal(game);
 }
 
-
+/**
+ * Handles input changes on the lower scorecard.
+ * @param {Event} e - The event fired when an input changes 
+ */
 function onChangeLower(e) {
   const game = e.target.name.split('-')[0];
   const rule = e.target.name.split('-')[1];
@@ -105,7 +114,10 @@ function onChangeLower(e) {
   updateGrandTotal(game);
 }
 
-
+/**
+ * Handles clicks made on the scoreboxes that have pre-set scores like Full House.
+ * @param {Event} e - The event that fires when clicking on a scorebox.
+ */
 function clickScorebox(e) {
   // identify which scorebox was selected and update the score
   let lowerScoreElmtName = '';
@@ -158,7 +170,10 @@ function clickScorebox(e) {
   updateGrandTotal(game);
 }
 
-
+/**
+ * Updates the TOTAL SCORE scorebox with the sum of the upper score section.
+ * @param {string} game - A string representing which game needs to update.
+ */
 function updateUpperScore(game) {
   const upperScoreBox = new ScoreBox(game, UPPER_SCORE, 0);
   const upperScoreElmt = document.querySelector(`#${game}-${UPPER_SCORE}`);
@@ -176,7 +191,11 @@ function updateUpperScore(game) {
   upperScoreElmt.innerText = upperScoreBox.score;
 }
 
-
+/**
+ * Checks to see if the criteria for the upper section bonus has been met.
+ * If it has, the bonus is added to the scorecard.
+ * @param {string} game - A string representing which game needs to update.
+ */
 function checkForUpperBonus(game) {
 
   let upperScore = calculateUpperGameScore(game);
@@ -202,7 +221,10 @@ function checkForUpperBonus(game) {
 }
 
 
-// updates the score in the TOTAL of the upper section
+/**
+ * Updates the TOTAL of upper section scorebox with the TOTAL SCORE + Bonus.
+ * @param {string} game - A string representing which game needs to update.
+ */
 function updateUpperTotalScore(game) {
   const indexUpperScore = findUpperScoreBoxIndex(new ScoreBox(game, UPPER_SCORE));
   const indexBonusScore = findUpperScoreBoxIndex(new ScoreBox(game, BONUS_SCORE));
@@ -228,7 +250,11 @@ function updateUpperTotalScore(game) {
   }
 }
 
-
+/**
+ * Searches the upper scorecard array to see if a scorebox obj already exists.
+ * @param {ScoreBox} newScoreBox - The scorebox to look for in the upper scorecard array.
+ * @returns The index of the scorebox in the upper scorecard array if found otherwise -1.
+ */
 function findUpperScoreBoxIndex(newScoreBox) {
   let foundIndex = upperScorecard.findIndex((scoreBox) => {
     if (scoreBox.game === newScoreBox.game && scoreBox.rule === newScoreBox.rule) {
@@ -240,7 +266,11 @@ function findUpperScoreBoxIndex(newScoreBox) {
   return foundIndex;
 }
 
-
+/**
+ * Searches the lower scorecard array to see if a scorebox obj already exists.
+ * @param {ScoreBox} newScoreBox - The scorebox to look for in the lower scorecard array.
+ * @returns The index of the scorebox in the lower scorecard array if found otherwise -1.
+ */
 function findLowerScoreBoxIndex(newScoreBox) {
   let foundIndex = lowerScorecard.findIndex((scoreBox) => {
     if (scoreBox.game === newScoreBox.game && scoreBox.rule === newScoreBox.rule) {
@@ -253,7 +283,11 @@ function findLowerScoreBoxIndex(newScoreBox) {
 
 }
 
-
+/**
+ * Calculates the total score of the upper section not including the bonus.
+ * @param {string} game - A string representing which game needs to update.
+ * @returns A number representing the total score.
+ */
 function calculateUpperGameScore(game) {
   let score = 0;
   // ignore the calculated scores boxes and lower section
@@ -268,7 +302,10 @@ function calculateUpperGameScore(game) {
   return score;
 }
 
-
+/**
+ * Updates the Total of lower section score.
+ * @param {string} game - A string representing which game needs to update.
+ */
 function updateLowerScore(game) {
   const lowerScoreBox = new ScoreBox(game, LOWER_SCORE);
   const lowerScoreElmt = document.querySelector(`#${game}-${LOWER_SCORE}`);
@@ -286,7 +323,11 @@ function updateLowerScore(game) {
   lowerScoreElmt.innerText = lowerScoreBox.score;
 }
 
-
+/**
+ * Calculates the total score of the lower section.
+ * @param {string} game - A string representing which game needs to update.
+ * @returns The total for the lower section of the scorecard.
+ */
 function calculateLowerGameScore(game) {
   let score = 0;
   // ignore the calculated scores boxes and lower section
@@ -302,7 +343,10 @@ function calculateLowerGameScore(game) {
   return score;
 }
 
-
+/**
+ * Checks to see if a yahtzee bonus score needs to be calculated and added to the scorecard.
+ * @param {*} game - A string representing which game needs to update.
+ */
 function updateYahtzeeBonusScore(game) {
   const bonusYahtzeeCountScoreBox = new ScoreBox(game, BONUS_YAHTZEE_COUNT);
   const bonusYahtzeeScoreBox = new ScoreBox(game, BONUS_YAHTZEE_SCORE);
@@ -330,7 +374,11 @@ function updateYahtzeeBonusScore(game) {
   }
 }
 
-
+/**
+ * Updates the grand total score box with the total score for the game.
+ * Total of upper + Total of lower = Grand Total
+ * @param {string} game - A string representing which game needs to update.
+ */
 function updateGrandTotal(game) {
   let total = 0;
   const upperScoreBoxIndex = findUpperScoreBoxIndex(new ScoreBox(game, UPPER_TOTAL_SCORE));
@@ -355,7 +403,7 @@ function updateGrandTotal(game) {
 
 
 /**
- * checks to see if the score is valid for the rule
+ * checks to see if the score is valid for the associated rule
  */
 function scoreIsValid(scoreBox) {
   const rule = scoreBox.rule;
