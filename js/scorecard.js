@@ -347,21 +347,21 @@ function updateYahtzeeBonusScore(game) {
 }
 
 
-function updateGrandTotal(game){
+function updateGrandTotal(game) {
   let total = 0;
   const upperScoreBoxIndex = findUpperScoreBoxIndex(new ScoreBox(game, UPPER_TOTAL_SCORE));
   const lowerScoreBoxIndex = findLowerScoreBoxIndex(new ScoreBox(game, LOWER_SCORE));
   const grandTotalBoxIndex = findLowerScoreBoxIndex(new ScoreBox(game, GRAND_TOTAL));
 
-  if(upperScoreBoxIndex != -1){
+  if (upperScoreBoxIndex != -1) {
     total += upperScorecard[upperScoreBoxIndex].score;
   }
 
-  if(lowerScoreBoxIndex != -1){
+  if (lowerScoreBoxIndex != -1) {
     total += lowerScorecard[lowerScoreBoxIndex].score;
   }
 
-  if(grandTotalBoxIndex != -1){
+  if (grandTotalBoxIndex != -1) {
     lowerScorecard[grandTotalBoxIndex].score = total;
   } else {
     lowerScorecard.push(new ScoreBox(game, GRAND_TOTAL, total));
