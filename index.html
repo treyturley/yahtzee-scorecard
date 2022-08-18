@@ -15,7 +15,7 @@
 
     <main id="main-content">
         <div class="container">
-            <form name="scorecard" id="scorecard">
+            <form name="upperScorecard" id="upperScorecard">
                 <table>
                     <colgroup>
                         <col class="width1" />
@@ -125,127 +125,139 @@
                             <td><div id="G5-upperTotalScore"></div></td>
                             <td><div id="G6-upperTotalScore"></div></td>
                         </tr>
+                    </tbody>
+                </table>
+            </form>
+            <form name="lowerScorecard" id="lowerScorecard">
+                <table class="lower-scorecard">
+                    <tbody>
+                        <colgroup>
+                            <col class="width1" />
+                            <col class="width2" />
+                            <col span="6" class="scorecolumn" />
+                        </colgroup>
                         <tr>
                             <td class="lower-header" colspan="8">LOWER SECTION</td>
                         </tr>
                         <tr>
                             <td class="td-heading">3 of a kind</td>
                             <td class="td-center">Add Total of All Dice</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><input type="number" name="G1-3kind"></td>
+                            <td><input type="number" name="G2-3kind"></td>
+                            <td><input type="number" name="G3-3kind"></td>
+                            <td><input type="number" name="G4-3kind"></td>
+                            <td><input type="number" name="G5-3kind"></td>
+                            <td><input type="number" name="G6-3kind"></td>
                         </tr>
                         <tr>
                             <td class="td-heading">4 of a kind</td>
                             <td class="td-center">Add Total of All Dice</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><input type="number" name="G1-4kind"></td>
+                            <td><input type="number" name="G2-4kind"></td>
+                            <td><input type="number" name="G3-4kind"></td>
+                            <td><input type="number" name="G4-4kind"></td>
+                            <td><input type="number" name="G5-4kind"></td>
+                            <td><input type="number" name="G6-4kind"></td>
+                            
                         </tr>
                         <tr>
                             <td class="td-heading">Full House</td>
                             <td class="td-center">Score 25</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><div class="scorebox-toggle" name="G1-fullHouse" id="G1-fullHouse"></div></td>
+                            <td><div class="scorebox-toggle" name="G2-fullHouse" id="G2-fullHouse"></div></td>
+                            <td><div class="scorebox-toggle" name="G3-fullHouse" id="G3-fullHouse"></div></td>
+                            <td><div class="scorebox-toggle" name="G4-fullHouse" id="G4-fullHouse"></div></td>
+                            <td><div class="scorebox-toggle" name="G5-fullHouse" id="G5-fullHouse"></div></td>
+                            <td><div class="scorebox-toggle" name="G6-fullHouse" id="G6-fullHouse"></div></td>
                         </tr>
                         <tr>
                             <td class="td-heading">Small Straight</td>
                             <td class="td-center">Score 30</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><div class="scorebox-toggle" name="G1-smallStraight" id="G1-smallStraight"></div></td>
+                            <td><div class="scorebox-toggle" name="G2-smallStraight" id="G2-smallStraight"></div></td>
+                            <td><div class="scorebox-toggle" name="G3-smallStraight" id="G3-smallStraight"></div></td>
+                            <td><div class="scorebox-toggle" name="G4-smallStraight" id="G4-smallStraight"></div></td>
+                            <td><div class="scorebox-toggle" name="G5-smallStraight" id="G5-smallStraight"></div></td>
+                            <td><div class="scorebox-toggle" name="G6-smallStraight" id="G6-smallStraight"></div></td>
                         </tr>
                         <tr>
                             <td class="td-heading">Large Straight</td>
                             <td class="td-center">Score 40</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><div class="scorebox-toggle" name="G1-largeStraight" id="G1-largeStraight"></div></td>
+                            <td><div class="scorebox-toggle" name="G2-largeStraight" id="G2-largeStraight"></div></td>
+                            <td><div class="scorebox-toggle" name="G3-largeStraight" id="G3-largeStraight"></div></td>
+                            <td><div class="scorebox-toggle" name="G4-largeStraight" id="G4-largeStraight"></div></td>
+                            <td><div class="scorebox-toggle" name="G5-largeStraight" id="G5-largeStraight"></div></td>
+                            <td><div class="scorebox-toggle" name="G6-largeStraight" id="G6-largeStraight"></div></td>
                         </tr>
                         <tr>
                             <td class="td-heading">Yahtzee</td>
-                            <td class="td-center">Score </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td class="td-center">Score 50</td>
+                            <td><div class="scorebox-toggle" name="G1-yahtzee" id="G1-yahtzee"></div></td>
+                            <td><div class="scorebox-toggle" name="G2-yahtzee" id="G2-yahtzee"></div></td>
+                            <td><div class="scorebox-toggle" name="G3-yahtzee" id="G3-yahtzee"></div></td>
+                            <td><div class="scorebox-toggle" name="G4-yahtzee" id="G4-yahtzee"></div></td>
+                            <td><div class="scorebox-toggle" name="G5-yahtzee" id="G5-yahtzee"></div></td>
+                            <td><div class="scorebox-toggle" name="G6-yahtzee" id="G6-yahtzee"></div></td>
                         </tr>
                         <tr>
                             <td class="td-heading">Chance</td>
                             <td class="td-center">Score Total of All Five Dice</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><input type="number" name="G1-chance"></td>
+                            <td><input type="number" name="G2-chance"></td>
+                            <td><input type="number" name="G3-chance"></td>
+                            <td><input type="number" name="G4-chance"></td>
+                            <td><input type="number" name="G5-chance"></td>
+                            <td><input type="number" name="G6-chance"></td>
                         </tr>
                         <tr>
                             <td class="td-heading td-Yahtzee-Bonus" rowspan="2">YAHTZEE BONUS</td>
                             <td class="td-center">Number of Bonus</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><input type="number" name="G1-bonusYahtzeeCount"></td>
+                            <td><input type="number" name="G2-bonusYahtzeeCount"></td>
+                            <td><input type="number" name="G3-bonusYahtzeeCount"></td>
+                            <td><input type="number" name="G4-bonusYahtzeeCount"></td>
+                            <td><input type="number" name="G5-bonusYahtzeeCount"></td>
+                            <td><input type="number" name="G6-bonusYahtzeeCount"></td>
                         </tr>
                         <tr>
                             <td class="td-center">Bonus Score</td>
-                            <td></td>                            
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><div class="bonus-yahtzee-score" id="G1-bonusYahtzeeScore"></div></td>
+                            <td><div class="bonus-yahtzee-score" id="G2-bonusYahtzeeScore"></div></td>                            
+                            <td><div class="bonus-yahtzee-score" id="G3-bonusYahtzeeScore"></div></td>                            
+                            <td><div class="bonus-yahtzee-score" id="G4-bonusYahtzeeScore"></div></td>                            
+                            <td><div class="bonus-yahtzee-score" id="G5-bonusYahtzeeScore"></div></td>                            
+                            <td><div class="bonus-yahtzee-score" id="G6-bonusYahtzeeScore"></div></td>                            
                         </tr>
                         <tr>
                             <td class="td-heading">TOTAL of Lower Section</td>
                             <td class="td-center">--></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><div id="G1-lowerScore"></div></td>
+                            <td><div id="G2-lowerScore"></div></td>
+                            <td><div id="G3-lowerScore"></div></td>
+                            <td><div id="G4-lowerScore"></div></td>
+                            <td><div id="G5-lowerScore"></div></td>
+                            <td><div id="G6-lowerScore"></div></td>
                         </tr>
                         <tr>
                             <td class="td-heading">Total of Upper Section</td>
                             <td class="td-center">--></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><div id="G1-upperTotalScore2"></div></td>
+                            <td><div id="G2-upperTotalScore2"></div></td>
+                            <td><div id="G3-upperTotalScore2"></div></td>
+                            <td><div id="G4-upperTotalScore2"></div></td>
+                            <td><div id="G5-upperTotalScore2"></div></td>
+                            <td><div id="G6-upperTotalScore2"></div></td>
                         </tr>
                         <tr>
                             <td class="td-heading">Grand Total</td>
                             <td class="td-center">--></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><div id="G1-grandTotal"></div></td>
+                            <td><div id="G2-grandTotal"></div></td>
+                            <td><div id="G3-grandTotal"></div></td>
+                            <td><div id="G4-grandTotal"></div></td>
+                            <td><div id="G5-grandTotal"></div></td>
+                            <td><div id="G6-grandTotal"></div></td>
                         </tr>
                         
                     </tbody>
