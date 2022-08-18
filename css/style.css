@@ -84,7 +84,6 @@ body {
     overflow: hidden;
 }
 
-
 #main-content table /* score boxes */
 td:nth-child(3),
 td:nth-child(4),
@@ -108,7 +107,7 @@ td:nth-child(8)
     text-align: center;
 
     /* to center the input because the text-align: center isnt actually centered */
-    padding-left: 15px; 
+    /* padding-left: 15px;  */
     
     border: none;
     background: transparent;
@@ -142,10 +141,9 @@ td:nth-child(8)
     color: white;
 }
 
-@media(max-width:1000px){
-    /* any styles in here are only in effect if screen width is under 1000 pixels */
-    /* lets remove that extra centering from the input boxes*/
+@media(min-width:1000px){
+    /* any styles in here are only in effect if screen width is over 1000 pixels */
     #main-content input{
-        padding-left: 0px;
+        padding-left: 15px;
     }
 }
