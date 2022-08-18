@@ -53,10 +53,21 @@ function onChangeUpper(e) {
 
   let scoreBoxIndex = findUpperScoreBoxIndex(newScore);
 
-  if (scoreBoxIndex >= 0) {
-    upperScorecard[scoreBoxIndex].score = newScore.score; // update existing
+  if (scoreIsValid(newScore)) {
+    if (scoreBoxIndex >= 0) {
+      upperScorecard[scoreBoxIndex].score = newScore.score; // update existing
+    } else {
+      upperScorecard.push(newScore); // add new
+    }
   } else {
-    upperScorecard.push(newScore); // add new
+    if (scoreBoxIndex >= 0) {
+      upperScorecard[scoreBoxIndex].score = 0; // update existing
+      document.querySelector('[name=' + `${game}-${rule}` + ']').value = 0;
+    } else {
+      newScore.score = 0;
+      upperScorecard.push(newScore); // add new
+      document.querySelector('[name=' + `${game}-${rule}` + ']').value = 0;
+    }
   }
 
   console.log('Upper Scorecard:'); // TODO: remove before going live
