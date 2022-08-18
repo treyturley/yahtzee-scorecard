@@ -369,9 +369,61 @@ function updateGrandTotal(game){
   document.getElementById(`${game}-${GRAND_TOTAL}`).innerText = total;
 }
 
+
 /**
  * checks to see if the score is valid for the rule
  */
-function scoreIsValid(scoreBox){
+function scoreIsValid(scoreBox) {
+  const rule = scoreBox.rule;
+  const score = scoreBox.score;
 
+  let isValid = false;
+
+  let maxScore = 0;
+
+  // short circuit when score is zero or less than zero
+  if (score === 0) {
+    isValid = true;
+  } else if (score < 0) {
+    isValid = false;
+  } else {
+    switch (rule) {
+      case 'aces':
+        maxScore = 1 * 4;
+        break;
+      case 'twos':
+        maxScore = 2 * 4;
+        break;
+      case 'threes':
+        maxScore = 3 * 4;
+        break;
+      case 'fours':
+        maxScore = 4 * 4;
+        break;
+      case 'fives':
+        maxScore = 5 * 4;
+        break;
+      case 'sixes':
+        maxScore = 6 * 4;
+        break;
+      case '3kind':
+        maxScore = 6 * 3 + 6 + 5;
+        break;
+      case '4kind':
+        maxScore = 6 * 4 + 5;
+        break;
+      case 'chance':
+        maxScore = 6 * 4 + 5;
+        break;
+      case 'bonusYahtzeeCount':
+        maxScore = 13;
+        break;
+      default:
+        console.error('Default case triggered in scoreIsValid');  //should never happen
+    }
+    if (score <= maxScore) {
+      isValid = true;
+    }
+  }
+  return isValid;
 }
