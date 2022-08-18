@@ -91,14 +91,22 @@ function onChangeLower(e) {
 
   let scoreBoxIndex = findLowerScoreBoxIndex(newScore);
 
-  if (scoreBoxIndex >= 0) {
-    lowerScorecard[scoreBoxIndex].score = newScore.score; // update existing
+  if (scoreIsValid(newScore)) {
+    if (scoreBoxIndex >= 0) {
+      lowerScorecard[scoreBoxIndex].score = newScore.score; // update existing
+    } else {
+      lowerScorecard.push(newScore); // add new
+    }
   } else {
-    lowerScorecard.push(newScore); // add new
+    if (scoreBoxIndex >= 0) {
+      lowerScorecard[scoreBoxIndex].score = 0; // update existing
+      document.querySelector('[name=' + `${game}-${rule}` + ']').value = 0;
+    } else {
+      newScore.score = 0;
+      lowerScorecard.push(newScore); // add new
+      document.querySelector('[name=' + `${game}-${rule}` + ']').value = 0;
+    }
   }
-
-  console.log('Lower Scorecard:'); // TODO: remove before going live
-  console.log(lowerScorecard);
 
   updateYahtzeeBonusScore(game);
   updateLowerScore(game);
