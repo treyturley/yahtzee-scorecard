@@ -67,11 +67,37 @@ body {
 }
 
 /* specific IDs */
-#main-header {
+#main-header{
+    background-color: #777;
+    color: white;
+}
+
+#navbar{
+    background-color: #333;
+    color: white;
+}
+
+#navbar ul{
+    padding: 0;
+    list-style: none;
+}
+
+#navbar li{
+    display: inline;
+}
+
+#navbar a{
+    color:white;
+    text-decoration: none;
+    font-size: 18px;
+    padding-right: 15px;
+}
+
+/* #main-header {
     background-color: #a5a5a5;
     text-align: center;
     color: black;
-}
+} */
 
 #main-content {
     margin-top: 40px;
