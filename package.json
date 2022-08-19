@@ -1,0 +1,34 @@
+{
+  "name": "yahtzee-scorecard",
+  "version": "1.0.0",
+  "description": "A simple browser based scorecard to use when playing Yahtzee. It automates some of the scorekeeping so you can drink more and math less while playing!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "create-folders": "npx mkdirp .\\build && npx mkdirp .\\build\\js && npx mkdirp .\\build\\css",
+    "minify": "npx minify .\\js\\scorecard.js > .\\build\\js\\scorecard.min.js && npx minify .\\css\\style.css > .\\build\\css\\style.min.css",
+    "cp-index": "npx copyfiles index.html .\\build\\",
+    "cp-files": "npx copyfiles index.html .\\css\\* .\\js\\* .\\build\\",
+    "build": "npm run cp-files",
+    "deploy": "npm run build && gh-pages -d build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/treyturley/yahtzee-scorecard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/treyturley/yahtzee-scorecard/issues"
+  },
+  "homepage": "https://treyturley.github.io/yahtzee-scorecard",
+  "devDependencies": {
+    "copyfiles": "^2.4.1",
+    "minify": "^9.1.0",
+    "mkdirp": "^1.0.4"
+  },
+  "dependencies": {
+    "gh-pages": "^4.0.0"
+  }
+}
