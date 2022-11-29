@@ -64,7 +64,7 @@ hr{
 .scorebox-toggle{
     height: 100%;
     width: 100%;
-    padding-top: 25px;
+    margin-top: 25px;
 }
 
 .lower-scorecard{
