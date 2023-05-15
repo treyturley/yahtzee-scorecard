@@ -17,7 +17,7 @@ const UPPER_SCORE = 'upperScore';
 const BONUS_SCORE = 'bonusScore';
 const UPPER_TOTAL_SCORE = 'upperTotalScore';
 const BONUS_YAHTZEE_COUNT = 'bonusYahtzeeCount';
-const BONUS_YAHTZEE_SCORE = 'bonusYahtzeeScore'
+const BONUS_YAHTZEE_SCORE = 'bonusYahtzeeScore';
 const LOWER_SCORE = 'lowerScore';
 // this is the upper section total at the bottom of the scorecard
 const UPPER_TOTAL_SCORE2 = 'upperTotalScore2';
@@ -43,6 +43,68 @@ class ScoreBox {
   }
 }
 
+function onFirstLoad() {
+  const scorecard = JSON.parse(localStorage.getItem('scorecard'));
+  if (scorecard != null) {
+    upperScorecard = scorecard.upperScorecard;
+    lowerScorecard = scorecard.lowerScorecard;
+    setUpperScorecard(upperScorecard);
+    setLowerScorecard(lowerScorecard);
+  }
+}
+
+onFirstLoad();
+
+function setUpperScorecard(scorecard) {
+  const gameIdSet = new Set();
+  scorecard.forEach((scorebox) => {
+    gameIdSet.add(scorebox.game);
+    try {
+      document.querySelector(
+        '[name=' + `${scorebox.game}-${scorebox.rule}` + ']'
+      ).value = scorebox.score;
+    } catch (error) {
+      // anything that fails is a box that gets calculated
+    }
+  });
+
+  for (const gameId of gameIdSet) {
+    updateUpperScore(gameId);
+    checkForUpperBonus(gameId);
+    updateUpperTotalScore(gameId);
+    updateGrandTotal(gameId);
+  }
+}
+
+function setLowerScorecard(scorecard) {
+  const gameIdSet = new Set();
+
+  scorecard.forEach((scorebox) => {
+    gameIdSet.add(scorebox.game);
+    let scoreBoxElmt = document.querySelector(
+      '[name=' + `${scorebox.game}-${scorebox.rule}` + ']'
+    );
+
+    if (scoreBoxElmt) {
+      scoreBoxElmt.value = scorebox.score;
+      scoreBoxElmt.innerHTML = scorebox.score;
+    }
+  });
+  for (const gameId of gameIdSet) {
+    updateYahtzeeBonusScore(gameId);
+    updateLowerScore(gameId);
+    updateGrandTotal(gameId);
+  }
+}
+
+function saveScorecard() {
+  const scorecard = {
+    upperScorecard: [...upperScorecard],
+    lowerScorecard: [...lowerScorecard],
+  };
+
+  localStorage.setItem('scorecard', JSON.stringify(scorecard));
+}
 /**
  * Handles input changes on the upper scorecard.
  * @param {Event} e - The event fired when an input changes
@@ -77,6 +139,7 @@ function onChangeUpper(e) {
   checkForUpperBonus(game);
   updateUpperTotalScore(game);
   updateGrandTotal(game);
+  saveScorecard();
 }
 
 /**
@@ -112,6 +175,7 @@ function onChangeLower(e) {
   updateYahtzeeBonusScore(game);
   updateLowerScore(game);
   updateGrandTotal(game);
+  saveScorecard();
 }
 
 /**
@@ -168,6 +232,7 @@ function clickScorebox(e) {
 
   updateLowerScore(game);
   updateGrandTotal(game);
+  saveScorecard();
 }
 
 /**
