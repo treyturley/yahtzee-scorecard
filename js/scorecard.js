@@ -12,6 +12,9 @@ for (let i = 0; i < scoreboxToggles.length; i++) {
   scoreboxToggles[i].addEventListener('click', clickScorebox);
 }
 
+const clearScorecardBtn = document.querySelector('#clearScorecard');
+clearScorecardBtn.addEventListener('click', clearScorecard);
+
 // some rule name constants for the calculated score boxes
 const UPPER_SCORE = 'upperScore';
 const BONUS_SCORE = 'bonusScore';
@@ -105,6 +108,14 @@ function saveScorecard() {
 
   localStorage.setItem('scorecard', JSON.stringify(scorecard));
 }
+
+function clearScorecard() {
+  if (window.confirm('Are you sure you want to erase the scorecard?')) {
+    localStorage.removeItem('scorecard');
+    location.reload();
+  }
+}
+
 /**
  * Handles input changes on the upper scorecard.
  * @param {Event} e - The event fired when an input changes
