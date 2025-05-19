@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 // add event handling
 const upperScorecardFrom = document.querySelector('#upperScorecard');
@@ -12,12 +12,15 @@ for (let i = 0; i < scoreboxToggles.length; i++) {
   scoreboxToggles[i].addEventListener('click', clickScorebox);
 }
 
+const clearScorecardBtn = document.querySelector('#clearScorecard');
+clearScorecardBtn.addEventListener('click', clearScorecard);
+
 // some rule name constants for the calculated score boxes
 const UPPER_SCORE = 'upperScore';
 const BONUS_SCORE = 'bonusScore';
 const UPPER_TOTAL_SCORE = 'upperTotalScore';
 const BONUS_YAHTZEE_COUNT = 'bonusYahtzeeCount';
-const BONUS_YAHTZEE_SCORE = 'bonusYahtzeeScore'
+const BONUS_YAHTZEE_SCORE = 'bonusYahtzeeScore';
 const LOWER_SCORE = 'lowerScore';
 // this is the upper section total at the bottom of the scorecard
 const UPPER_TOTAL_SCORE2 = 'upperTotalScore2';
@@ -29,8 +32,8 @@ const SMALL_STRAIGHT = 'smallStraight';
 const LARGE_STRAIGHT = 'largeStraight';
 const YAHTZEE = 'yahtzee';
 
-const upperScorecard = []
-const lowerScorecard = []
+let upperScorecard = [];
+let lowerScorecard = [];
 
 /**
  * Represents an individual box on the scorecard where a score can be entered.
@@ -40,6 +43,76 @@ class ScoreBox {
     this.game = game;
     this.rule = rule;
     this.score = score;
+  }
+}
+
+function onFirstLoad() {
+  const scorecard = JSON.parse(localStorage.getItem('scorecard'));
+  if (scorecard != null) {
+    upperScorecard = scorecard.upperScorecard;
+    lowerScorecard = scorecard.lowerScorecard;
+    setUpperScorecard(upperScorecard);
+    setLowerScorecard(lowerScorecard);
+  }
+}
+
+onFirstLoad();
+
+function setUpperScorecard(scorecard) {
+  const gameIdSet = new Set();
+  scorecard.forEach((scorebox) => {
+    gameIdSet.add(scorebox.game);
+    try {
+      document.querySelector(
+        '[name=' + `${scorebox.game}-${scorebox.rule}` + ']'
+      ).value = scorebox.score;
+    } catch (error) {
+      // anything that fails is a box that gets calculated
+    }
+  });
+
+  for (const gameId of gameIdSet) {
+    updateUpperScore(gameId);
+    checkForUpperBonus(gameId);
+    updateUpperTotalScore(gameId);
+    updateGrandTotal(gameId);
+  }
+}
+
+function setLowerScorecard(scorecard) {
+  const gameIdSet = new Set();
+
+  scorecard.forEach((scorebox) => {
+    gameIdSet.add(scorebox.game);
+    let scoreBoxElmt = document.querySelector(
+      '[name=' + `${scorebox.game}-${scorebox.rule}` + ']'
+    );
+
+    if (scoreBoxElmt) {
+      scoreBoxElmt.value = scorebox.score;
+      scoreBoxElmt.innerHTML = scorebox.score;
+    }
+  });
+  for (const gameId of gameIdSet) {
+    updateYahtzeeBonusScore(gameId);
+    updateLowerScore(gameId);
+    updateGrandTotal(gameId);
+  }
+}
+
+function saveScorecard() {
+  const scorecard = {
+    upperScorecard: [...upperScorecard],
+    lowerScorecard: [...lowerScorecard],
+  };
+
+  localStorage.setItem('scorecard', JSON.stringify(scorecard));
+}
+
+function clearScorecard() {
+  if (window.confirm('Are you sure you want to erase the scorecard?')) {
+    localStorage.removeItem('scorecard');
+    location.reload();
   }
 }
 
@@ -77,11 +150,12 @@ function onChangeUpper(e) {
   checkForUpperBonus(game);
   updateUpperTotalScore(game);
   updateGrandTotal(game);
+  saveScorecard();
 }
 
 /**
  * Handles input changes on the lower scorecard.
- * @param {Event} e - The event fired when an input changes 
+ * @param {Event} e - The event fired when an input changes
  */
 function onChangeLower(e) {
   const game = e.target.name.split('-')[0];
@@ -112,6 +186,7 @@ function onChangeLower(e) {
   updateYahtzeeBonusScore(game);
   updateLowerScore(game);
   updateGrandTotal(game);
+  saveScorecard();
 }
 
 /**
@@ -126,7 +201,7 @@ function clickScorebox(e) {
   let score = 0;
 
   const newScorebox = new ScoreBox(game, rule);
-  
+
   switch (rule) {
     case FULL_HOUSE:
       score = 25;
@@ -168,6 +243,7 @@ function clickScorebox(e) {
 
   updateLowerScore(game);
   updateGrandTotal(game);
+  saveScorecard();
 }
 
 /**
@@ -183,7 +259,7 @@ function updateUpperScore(game) {
   let upperScoreIndex = findUpperScoreBoxIndex(upperScoreBox);
 
   if (upperScoreIndex >= 0) {
-    upperScorecard[upperScoreIndex].score = upperScoreBox.score;  // update existing
+    upperScorecard[upperScoreIndex].score = upperScoreBox.score; // update existing
   } else {
     upperScorecard.push(upperScoreBox); // push new scorebox for this game
   }
@@ -197,7 +273,6 @@ function updateUpperScore(game) {
  * @param {string} game - A string representing which game needs to update.
  */
 function checkForUpperBonus(game) {
-
   let upperScore = calculateUpperGameScore(game);
 
   const bonusScoreBox = new ScoreBox(game, BONUS_SCORE, 0);
@@ -220,15 +295,20 @@ function checkForUpperBonus(game) {
   }
 }
 
-
 /**
  * Updates the TOTAL of upper section scorebox with the TOTAL SCORE + Bonus.
  * @param {string} game - A string representing which game needs to update.
  */
 function updateUpperTotalScore(game) {
-  const indexUpperScore = findUpperScoreBoxIndex(new ScoreBox(game, UPPER_SCORE));
-  const indexBonusScore = findUpperScoreBoxIndex(new ScoreBox(game, BONUS_SCORE));
-  const indexUpperTotalScore = findUpperScoreBoxIndex(new ScoreBox(game, UPPER_TOTAL_SCORE));
+  const indexUpperScore = findUpperScoreBoxIndex(
+    new ScoreBox(game, UPPER_SCORE)
+  );
+  const indexBonusScore = findUpperScoreBoxIndex(
+    new ScoreBox(game, BONUS_SCORE)
+  );
+  const indexUpperTotalScore = findUpperScoreBoxIndex(
+    new ScoreBox(game, UPPER_TOTAL_SCORE)
+  );
 
   let total = 0;
 
@@ -257,7 +337,10 @@ function updateUpperTotalScore(game) {
  */
 function findUpperScoreBoxIndex(newScoreBox) {
   let foundIndex = upperScorecard.findIndex((scoreBox) => {
-    if (scoreBox.game === newScoreBox.game && scoreBox.rule === newScoreBox.rule) {
+    if (
+      scoreBox.game === newScoreBox.game &&
+      scoreBox.rule === newScoreBox.rule
+    ) {
       return true;
     }
     return false;
@@ -273,14 +356,16 @@ function findUpperScoreBoxIndex(newScoreBox) {
  */
 function findLowerScoreBoxIndex(newScoreBox) {
   let foundIndex = lowerScorecard.findIndex((scoreBox) => {
-    if (scoreBox.game === newScoreBox.game && scoreBox.rule === newScoreBox.rule) {
+    if (
+      scoreBox.game === newScoreBox.game &&
+      scoreBox.rule === newScoreBox.rule
+    ) {
       return true;
     }
     return false;
   });
 
   return foundIndex;
-
 }
 
 /**
@@ -291,11 +376,13 @@ function findLowerScoreBoxIndex(newScoreBox) {
 function calculateUpperGameScore(game) {
   let score = 0;
   // ignore the calculated scores boxes and lower section
-  upperScorecard.forEach(scoreBox => {
-    if (scoreBox.game === game
-      && scoreBox.rule != UPPER_SCORE
-      && scoreBox.rule != BONUS_SCORE
-      && scoreBox.rule != UPPER_TOTAL_SCORE) {
+  upperScorecard.forEach((scoreBox) => {
+    if (
+      scoreBox.game === game &&
+      scoreBox.rule != UPPER_SCORE &&
+      scoreBox.rule != BONUS_SCORE &&
+      scoreBox.rule != UPPER_TOTAL_SCORE
+    ) {
       score += parseInt(scoreBox.score);
     }
   });
@@ -315,7 +402,7 @@ function updateLowerScore(game) {
   const lowerScoreIndex = findLowerScoreBoxIndex(lowerScoreBox);
 
   if (lowerScoreIndex >= 0) {
-    lowerScorecard[lowerScoreIndex].score = lowerScoreBox.score;  // update existing
+    lowerScorecard[lowerScoreIndex].score = lowerScoreBox.score; // update existing
   } else {
     lowerScorecard.push(lowerScoreBox); // push new scorebox for this game
   }
@@ -331,12 +418,14 @@ function updateLowerScore(game) {
 function calculateLowerGameScore(game) {
   let score = 0;
   // ignore the calculated scores boxes and lower section
-  lowerScorecard.forEach(scoreBox => {
-    if (scoreBox.game === game
-      && scoreBox.rule != BONUS_YAHTZEE_COUNT
-      && scoreBox.rule != LOWER_SCORE
-      && scoreBox.rule != UPPER_TOTAL_SCORE2
-      && scoreBox.rule != GRAND_TOTAL) {
+  lowerScorecard.forEach((scoreBox) => {
+    if (
+      scoreBox.game === game &&
+      scoreBox.rule != BONUS_YAHTZEE_COUNT &&
+      scoreBox.rule != LOWER_SCORE &&
+      scoreBox.rule != UPPER_TOTAL_SCORE2 &&
+      scoreBox.rule != GRAND_TOTAL
+    ) {
       score += parseInt(scoreBox.score);
     }
   });
@@ -350,12 +439,17 @@ function calculateLowerGameScore(game) {
 function updateYahtzeeBonusScore(game) {
   const bonusYahtzeeCountScoreBox = new ScoreBox(game, BONUS_YAHTZEE_COUNT);
   const bonusYahtzeeScoreBox = new ScoreBox(game, BONUS_YAHTZEE_SCORE);
-  const bonusYahtzeeScoreBoxElmt = document.querySelector(`#${game}-${BONUS_YAHTZEE_SCORE}`);
+  const bonusYahtzeeScoreBoxElmt = document.querySelector(
+    `#${game}-${BONUS_YAHTZEE_SCORE}`
+  );
 
-  let bonusCount, bonusScore = 0;
+  let bonusCount,
+    bonusScore = 0;
 
   // check to see if there is a yahtzee bonus score box
-  const bonusYahtzeeCountIndex = findLowerScoreBoxIndex(bonusYahtzeeCountScoreBox);
+  const bonusYahtzeeCountIndex = findLowerScoreBoxIndex(
+    bonusYahtzeeCountScoreBox
+  );
   const bonusYahtzeeScoreIndex = findLowerScoreBoxIndex(bonusYahtzeeScoreBox);
 
   // multiple by the count of bonuses to get total
@@ -381,9 +475,15 @@ function updateYahtzeeBonusScore(game) {
  */
 function updateGrandTotal(game) {
   let total = 0;
-  const upperScoreBoxIndex = findUpperScoreBoxIndex(new ScoreBox(game, UPPER_TOTAL_SCORE));
-  const lowerScoreBoxIndex = findLowerScoreBoxIndex(new ScoreBox(game, LOWER_SCORE));
-  const grandTotalBoxIndex = findLowerScoreBoxIndex(new ScoreBox(game, GRAND_TOTAL));
+  const upperScoreBoxIndex = findUpperScoreBoxIndex(
+    new ScoreBox(game, UPPER_TOTAL_SCORE)
+  );
+  const lowerScoreBoxIndex = findLowerScoreBoxIndex(
+    new ScoreBox(game, LOWER_SCORE)
+  );
+  const grandTotalBoxIndex = findLowerScoreBoxIndex(
+    new ScoreBox(game, GRAND_TOTAL)
+  );
 
   if (upperScoreBoxIndex != -1) {
     total += upperScorecard[upperScoreBoxIndex].score;
@@ -400,7 +500,6 @@ function updateGrandTotal(game) {
   }
   document.getElementById(`${game}-${GRAND_TOTAL}`).innerText = total;
 }
-
 
 /**
  * checks to see if the score is valid for the associated rule
@@ -421,22 +520,22 @@ function scoreIsValid(scoreBox) {
   } else {
     switch (rule) {
       case 'aces':
-        maxScore = 1 * 4;
+        maxScore = 1 * 5;
         break;
       case 'twos':
-        maxScore = 2 * 4;
+        maxScore = 2 * 5;
         break;
       case 'threes':
-        maxScore = 3 * 4;
+        maxScore = 3 * 5;
         break;
       case 'fours':
-        maxScore = 4 * 4;
+        maxScore = 4 * 5;
         break;
       case 'fives':
-        maxScore = 5 * 4;
+        maxScore = 5 * 5;
         break;
       case 'sixes':
-        maxScore = 6 * 4;
+        maxScore = 6 * 5;
         break;
       case '3kind':
         maxScore = 6 * 3 + 6 + 5;
@@ -451,7 +550,7 @@ function scoreIsValid(scoreBox) {
         maxScore = 13;
         break;
       default:
-        console.error('Default case triggered in scoreIsValid');  //should never happen
+        console.error('Default case triggered in scoreIsValid'); //should never happen
     }
     if (score <= maxScore) {
       isValid = true;
