@@ -520,22 +520,22 @@ function scoreIsValid(scoreBox) {
   } else {
     switch (rule) {
       case 'aces':
-        maxScore = 1 * 4;
+        maxScore = 1 * 5;
         break;
       case 'twos':
-        maxScore = 2 * 4;
+        maxScore = 2 * 5;
         break;
       case 'threes':
-        maxScore = 3 * 4;
+        maxScore = 3 * 5;
         break;
       case 'fours':
-        maxScore = 4 * 4;
+        maxScore = 4 * 5;
         break;
       case 'fives':
-        maxScore = 5 * 4;
+        maxScore = 5 * 5;
         break;
       case 'sixes':
-        maxScore = 6 * 4;
+        maxScore = 6 * 5;
         break;
       case '3kind':
         maxScore = 6 * 3 + 6 + 5;
